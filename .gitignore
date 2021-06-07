@@ -1,0 +1,4 @@
+out
+yarn-error.log
+node_modules
+.next
