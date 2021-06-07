@@ -29,7 +29,7 @@ import {
     DrawerContent,
     DrawerCloseButton,
 } from "@chakra-ui/react";
-//import {} from "@chakra-ui/modal";
+
 import Header from "../components/Header";
 
 import { useWeb3 } from "../helpers/web3";
@@ -56,10 +56,12 @@ export default function Home() {
   const [keyspaceValue, setKeyspaceValue]  = useState("");
   const [pwdValue, setpwdValue] = useState("");
   const [labelValue, setLabelValue] = useState("");
+  const [contentValue, setContentValue] = useState("");
 
   const [keyspacePlaceHolder, setKeyspacePlaceHolder]  = useState("keyspace...");
   const [pwdPlaceHolder, setPwdPlaceHolder]  = useState("password...");
   const [labelPlaceHolder, setLabelPlaceHolder]  = useState("label...");
+  const [contentPlaceHolder, setContentPlaceHolder] = useState("content...");
 
   const seedlist = useMemo(
         () => ({
@@ -139,7 +141,7 @@ export default function Home() {
   },[library,keyspaceValue,pwdValue]);
 
   const doSave = useCallback(()=>{
-
+    console.log("do save")
   },[]);
 
   const checkSave = useCallback(()=>{
@@ -154,9 +156,9 @@ export default function Home() {
         setLabelPlaceHolder("Need label...");
     }
 
-    if(pwdValue==""){
+    if(contentValue==""){
         isEmpty=true;
-        setPwdPlaceHolder("Please enter pwd value...");
+        setContentPlaceHolder("Please enter content value...");
     }
 
     if(isEmpty==true){
@@ -164,7 +166,7 @@ export default function Home() {
     }
 
     return true;
-  },[keyspaceValue, pwdValue, labelValue]);
+  },[keyspaceValue, contentValue, labelValue]);
 
   const addMore= useCallback(()=>{
 
@@ -235,20 +237,25 @@ const WalletDeactiveButton = function(props){
               onClose={onClose}
               finalFocusRef={btnRef}
           >
-              <DrawerOverlay />
-              <DrawerContent>
+              <DrawerOverlay colorScheme="blackAlpha" />
+              <DrawerContent
+                colorScheme="blackAlpha"
+              >
                   <DrawerCloseButton />
                   <DrawerHeader>Enter your password</DrawerHeader>
 
                   <DrawerBody>
-                      <Input placeholder="Type here..." />
+                      <Input
+                          placeholder="Type here..."
+                          type="password"
+                      />
                   </DrawerBody>
 
                   <DrawerFooter>
                       <Button variant="outline" mr={3} onClick={onClose}>
                           Cancel
                       </Button>
-                      <Button colorScheme="blue">Save</Button>
+                      <Button colorScheme="blue" onClick={doSave}>Save</Button>
                   </DrawerFooter>
               </DrawerContent>
           </Drawer>
@@ -358,9 +365,9 @@ const WalletDeactiveButton = function(props){
                       <Box w="70%">
                       <TextInput
                           disabled={(!active||!account)}
-                          value={pwdValue}
-                          onChange={setpwdValue}
-                          placeholder={pwdPlaceHolder}
+                          value={contentValue}
+                          onChange={setContentValue}
+                          placeholder={contentPlaceHolder}
                           /*
                                                       type={'password'}
                           */
@@ -371,7 +378,7 @@ const WalletDeactiveButton = function(props){
               </Box>
           </VStack>
       );
-  },[keyspaceValue, pwdValue, labelValue, active, account, keyspacePlaceHolder, pwdPlaceHolder, labelPlaceHolder]);
+  },[keyspaceValue, contentValue, labelValue, active, account, keyspacePlaceHolder, contentPlaceHolder, labelPlaceHolder]);
 
   const QueryHtml = useMemo( (props)=> {
         return (
