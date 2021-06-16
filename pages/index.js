@@ -33,7 +33,14 @@ import {
 import Header from "../components/Header";
 
 import { useWeb3 } from "../helpers/web3";
-import {calculateValidSeed, calculateWalletAddressBaseOnSeed, calculatePairsBaseOnSeed, encryptMessage, signMessage} from "../helpers/utils";
+import {
+    calculateValidSeed,
+    calculateWalletAddressBaseOnSeed,
+    calculatePairsBaseOnSeed,
+    encryptMessage,
+    signMessage,
+    calculateMultiHash
+} from "../helpers/utils";
 
 import {TextInput} from "../components/TextInput";
 import abiSeed from "../abi/seedlist";
@@ -141,8 +148,41 @@ export default function Home() {
   },[library,keyspaceValue,pwdValue]);
 
   const doSave = useCallback(()=>{
-    console.log("do save")
-  },[]);
+      const seedContract = new Contract(
+          seedlist.address,
+          abiSeed,
+          library.getSigner(account)
+      );
+
+      let seed = calculateValidSeed(keyspaceValue, pwdValue);
+
+      console.log(calculateValidSeed(keyspaceValue, pwdValue));
+
+      let addr = calculateWalletAddressBaseOnSeed(seed);
+
+      let pairs = calculatePairsBaseOnSeed(seed);
+
+      let message = "\x19Ethereum Signed Message:\n"+addr.length+addr;
+
+      let signature = signMessage(message, pairs.privKey);
+      console.log('addr:', (addr))
+      console.log("sign.v:", signature.v)
+      console.log("sign.r:", signature.r)
+      console.log("sign.s:", signature.s)
+      console.log("hash:",signature.messageHash)
+
+      let encryptText = encryptMessage("haliluya hello world what can fuck you please tell me may somebody","123456");
+      console.log("enctypt:",encryptText,",length:",encryptText.length)
+
+      //function addKey(address addr, bytes32 addrHash, bytes32 r, bytes32 s, uint8 v, address label, string memory cryptoKey, string memory labelName, string memory version,bytes32 globalHash) canAdd public returns(bool){
+      let version = "v1.0";
+      console.log("lable value:",labelValue);
+      let globalParamsStr = addr+signature.messageHash+signature.r+signature.s+signature.v+calculateWalletAddressBaseOnSeed(calculateMultiHash(labelValue,1))+encryptText+labelValue+version;
+      seedContract.functions["addKey"](addr, signature.messageHash, signature.r, signature.s, signature.v,
+          calculateWalletAddressBaseOnSeed(calculateMultiHash(labelValue,1)), encryptText, labelValue, version, calculateMultiHash(globalParamsStr, 1))
+          .catch()
+          .then((tx)=>tx.wait());
+  },[library, keyspaceValue, pwdValue, labelValue]);
 
   const checkSave = useCallback(()=>{
     let isEmpty=false;
@@ -172,9 +212,12 @@ export default function Home() {
 
   },[]);
 
-  const doQuery = useCallback(()=>{
-
-  },[]);
+    const doQuery = useCallback(()=>{
+    if(keyspaceValue==""){
+        setKeyspacePlaceHolder("Please enter key space value...");
+        return;
+    }
+  },[keyspaceValue]);
 
 const WalletDeactiveButton = function(props){
     return(
@@ -392,7 +435,9 @@ const WalletDeactiveButton = function(props){
                 >
                     <Stack spacing={2}>
                         <TextInput
+/*
                             disabled={(!active||!account)}
+*/
                             value={keyspaceValue}
                             onChange={setKeyspaceValue}
                             placeholder={keyspacePlaceHolder}
@@ -404,7 +449,7 @@ const WalletDeactiveButton = function(props){
                 </Box>
             </VStack>
         );
-    },[keyspaceValue, active, account]);
+    },[keyspaceValue, active, account, keyspacePlaceHolder]);
 
   return (
       <Box minH="100vh" color="white">
@@ -465,10 +510,10 @@ const WalletDeactiveButton = function(props){
                     {isSaveActive && SaveHtml}
                     {isQueryActive && QueryHtml}
                   <HStack spaceing="24px" width="100%">
-                    {(!active || !account) && <WalletDeactiveButton />}
+                    {(!active || !account) && !isQueryActive && <WalletDeactiveButton />}
                     {active && account && isKeySpaceActive && <KeySpaceButton />}
                     {active && account && isSaveActive && <SaveButton/>}
-                    {active && account && isQueryActive && <QueryButton/>}
+                    {isQueryActive && <QueryButton/>}
                   </HStack>
                 </Stack>
               </Box>
