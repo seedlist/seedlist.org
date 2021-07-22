@@ -43,7 +43,7 @@ export default function Footer() {
               </a>
           </Link>
 
-          <Link href="https://github.com/NullBeings/seedlist-docs/blob/main/protocol/seedlist_cn.md">
+          <Link href="https://github.com/NullBeings/seedlist-docs/blob/main/protocol/seedlist_en.md">
               <a target="_blank">
                   <HStack spacing={2}>
                       <Text fontSize="1xl" fontWeight="">
