@@ -3,15 +3,16 @@ import { Button, ButtonGroup } from "@chakra-ui/button";
 import Link from "next/link";
 import Image from "next/image";
 
-import { useWeb3 } from "../../helpers/web3";
+import { useWeb3, NetworkName } from "../../helpers/web3";
 import { shortenAddress } from "../../helpers/utils";
+import {useMemo} from "react";
 
 
 export default function Header() {
-  const { active, activate, deactivate, account, pending, library } = useWeb3();
+  const { active, activate, deactivate, account, pending, library, netName } = useWeb3();
 
-  return (
-    <Container maxW="container.xl">
+    return (
+        <Container maxW="container.xl">
       <HStack py={5} wrap="wrap" spacing={0}>
       <Link href="/">
           <a>
@@ -27,13 +28,20 @@ export default function Header() {
         <Box>
           {(!active || !account) && (
             <Button
-              colorScheme="whiteAlpha"
+              colorScheme="blackAlpha"
+              bg="#2b2d32"
               boxShadow="sm"
               onClick={activate}
               isLoading={pending}
             >
-              <Text fontSize="1xl">
-                Wallet Connect
+                <Image
+                    src="./metamask.svg"
+                    width="22"
+                    height="22"
+                />
+
+                <Text fontSize="1xl">
+                    Wallet Connect
               </Text>
             </Button>
           )}
@@ -41,10 +49,17 @@ export default function Header() {
             <ButtonGroup isAttached boxShadow="sm">
               <Button
                 colorScheme="whiteAlpha"
+                bg="#2b2d32"
                 fontFamily="monospace"
                 onClick={deactivate}
               >
-                {shortenAddress(account)}
+                  <Image
+                      src="./metamask.svg"
+                      width="22"
+                      height="22"
+                  />
+
+                  {shortenAddress(netName, account)}
               </Button>
             </ButtonGroup>
           )}

@@ -12,10 +12,10 @@ const theme = extendTheme({
   },
 });
 
-export default function SatsApp({ Component, pageProps }) {
+export default function SeedApp({ Component, pageProps }) {
   return (
     <PlausibleProvider
-      domain="satstoken.org"
+      domain="seedlist.org"
       customDomain="https://analytics.nymm.app"
       selfHosted
     >

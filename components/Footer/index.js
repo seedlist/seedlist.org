@@ -14,28 +14,18 @@ export default function Footer() {
   return (
     <FooterContainer maxW="container.xl" centerContent>
       <HStack py={5} wrap="wrap" spacing={6}>
-{/*
-      <Link href="/">
-          <a>
+
+      <Link href="https://github.com/NullBeings/seedlist-interface">
+          <a target="_blank">
               <HStack spacing={2}>
                   <Text fontSize="1xl" fontWeight="">
-                      PGP:527B5C82B1F6B2DB72A0ECBF87497B9163974F5A
+                      Github: master
                   </Text>
               </HStack>
           </a>
       </Link>
-*/}
-      <Link href="/">
-          <a>
-              <HStack spacing={2}>
-                  <Text fontSize="1xl" fontWeight="">
-                      GitHub: ebd2ac43
-                  </Text>
-              </HStack>
-          </a>
-      </Link>
-          <Link href="/">
-              <a>
+          <Link href="https://github.com/NullBeings/seedlist-interface/blob/main/LICENSE">
+              <a target="_blank">
                   <HStack spacing={2}>
                       <Text fontSize="1xl" fontWeight="">
                           License: MIT
@@ -44,36 +34,17 @@ export default function Footer() {
               </a>
           </Link>
           <Link href="/">
-              <a>
+              <a target="_blank">
                   <HStack spacing={2}>
                       <Text fontSize="1xl" fontWeight="">
-                          Version: v1.0.0
-                      </Text>
-                  </HStack>
-              </a>
-          </Link>
-          <Link href="/">
-              <a>
-                  <HStack spacing={2}>
-                      <Text fontSize="1xl" fontWeight="">
-                          Warns: No
+                          Version: 0.1.0-rc
                       </Text>
                   </HStack>
               </a>
           </Link>
 
-          <Link href="/">
-              <a>
-                  <HStack spacing={2}>
-                      <Text fontSize="1xl" fontWeight="">
-                          Docs
-                      </Text>
-                  </HStack>
-              </a>
-          </Link>
-
-          <Link href="/">
-              <a>
+          <Link href="https://github.com/NullBeings/seedlist-docs/blob/main/protocol/seedlist_cn.md">
+              <a target="_blank">
                   <HStack spacing={2}>
                       <Text fontSize="1xl" fontWeight="">
                           Protocol
@@ -82,8 +53,8 @@ export default function Footer() {
               </a>
           </Link>
 
-          <Link href="/">
-              <a>
+          <Link href="https://discord.gg/kQgg5kkpA5">
+              <a target="_blank">
                   <HStack spacing={2}>
                       <Text fontSize="1xl" fontWeight="">
                           Discord
@@ -92,17 +63,17 @@ export default function Footer() {
               </a>
           </Link>
 
-{/*
-          <Link href="/">
-              <a>
+
+          <Link href="https://github.com/NullBeings/seedlist-docs/blob/main/misc/donate.md">
+              <a target="_blank">
                   <HStack spacing={2}>
                       <Text fontSize="1xl" fontWeight="">
-                          Contract
+                          Donate
                       </Text>
                   </HStack>
               </a>
           </Link>
-*/}
+
       </HStack>
     </FooterContainer>
   );
