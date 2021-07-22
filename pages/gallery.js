@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <Box minH="100vh" color="white">
       <Head>
-        <title>sats</title>
+        <title>seed</title>
       </Head>
       <Stack spacing={10}>
         <Header />

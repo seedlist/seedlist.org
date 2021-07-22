@@ -1,8 +1,33 @@
 [
   {
-    "inputs": [],
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_treasury",
+        "type": "address"
+      }
+    ],
     "stateMutability": "nonpayable",
     "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "labelName",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "res",
+        "type": "bool"
+      }
+    ],
+    "name": "AddKey",
+    "type": "event"
   },
   {
     "anonymous": false,
@@ -18,6 +43,12 @@
         "internalType": "string",
         "name": "version",
         "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "res",
+        "type": "bool"
       }
     ],
     "name": "InitKeySpace",
@@ -46,7 +77,17 @@
     "inputs": [
       {
         "internalType": "address",
+        "name": "keyspace",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
         "name": "addr",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "addr0",
         "type": "address"
       },
       {
@@ -71,7 +112,7 @@
       },
       {
         "internalType": "address",
-        "name": "label",
+        "name": "id",
         "type": "address"
       },
       {
@@ -88,11 +129,6 @@
         "internalType": "string",
         "name": "version",
         "type": "string"
-      },
-      {
-        "internalType": "bytes32",
-        "name": "globalHash",
-        "type": "bytes32"
       }
     ],
     "name": "addKey",
@@ -123,23 +159,9 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "addr",
+        "name": "id",
         "type": "address"
-      }
-    ],
-    "name": "allLabels",
-    "outputs": [
-      {
-        "internalType": "string[]",
-        "name": "",
-        "type": "string[]"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
+      },
       {
         "internalType": "address",
         "name": "addr",
@@ -164,16 +186,6 @@
         "internalType": "uint8",
         "name": "v",
         "type": "uint8"
-      },
-      {
-        "internalType": "address",
-        "name": "label",
-        "type": "address"
-      },
-      {
-        "internalType": "bytes32",
-        "name": "labelHash",
-        "type": "bytes32"
       }
     ],
     "name": "getKey",
@@ -192,6 +204,11 @@
       {
         "internalType": "address",
         "name": "addr",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "addr0",
         "type": "address"
       },
       {
@@ -229,6 +246,50 @@
       }
     ],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "addr",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "addrHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "r",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "s",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint8",
+        "name": "v",
+        "type": "uint8"
+      },
+      {
+        "internalType": "address",
+        "name": "labelId",
+        "type": "address"
+      }
+    ],
+    "name": "isLabelExist",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -319,6 +380,11 @@
         "internalType": "address",
         "name": "",
         "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
       }
     ],
     "name": "labelExist",
@@ -351,6 +417,19 @@
         "internalType": "string",
         "name": "",
         "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "mintable",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
       }
     ],
     "stateMutability": "view",
@@ -392,6 +471,44 @@
     "inputs": [
       {
         "internalType": "bool",
+        "name": "value",
+        "type": "bool"
+      }
+    ],
+    "name": "setMintable",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "addr",
+        "type": "address"
+      }
+    ],
+    "name": "setTreasury",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bool",
         "name": "_updateadd",
         "type": "bool"
       }
@@ -413,6 +530,26 @@
         "internalType": "address",
         "name": "addr",
         "type": "address"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "addrHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "r",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "s",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint8",
+        "name": "v",
+        "type": "uint8"
       }
     ],
     "name": "spaceExist",
@@ -437,6 +574,58 @@
     "name": "transferOwnership",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "treasury",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "addr",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "addrHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "r",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "s",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint8",
+        "name": "v",
+        "type": "uint8"
+      }
+    ],
+    "name": "unstrictLabels",
+    "outputs": [
+      {
+        "internalType": "string[]",
+        "name": "",
+        "type": "string[]"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -472,14 +661,14 @@
         "type": "address"
       },
       {
+        "internalType": "address",
+        "name": "labelId",
+        "type": "address"
+      },
+      {
         "internalType": "string",
         "name": "cryptoKey",
         "type": "string"
-      },
-      {
-        "internalType": "bytes32",
-        "name": "labelKeyHash",
-        "type": "bytes32"
       }
     ],
     "name": "updateKey",

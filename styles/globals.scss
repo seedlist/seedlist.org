@@ -10,11 +10,12 @@ body {
   font-family: "Inter", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   height: 100%;
-  background-image: linear-gradient(
-    to left,
-    var(--chakra-colors-black),
-    var(--chakra-colors-black)
-  ) !important;
+  //background-image: linear-gradient(
+  //  to left,
+  //  var(--chakra-colors-black),
+  //  var(--chakra-colors-black)
+  //) !important;
+  background-color: #1a1d22 !important;
   background-size: cover !important;
   background-attachment: fixed !important;
   overscroll-behavior: none !important;
@@ -32,6 +33,9 @@ body {
       box-shadow: none;
     }
   }
+  input{
+    color: white !important;
+  }
 }
 
 #__next {
@@ -45,6 +49,7 @@ a {
 
 * {
   box-sizing: border-box;
+  box-shadow: none !important;
 }
 
 .frame img {
@@ -102,4 +107,22 @@ a {
 
 .bn-onboard-modal {
   z-index: 1000;
+}
+
+.chakra-slide.chakra-modal__content {
+  background-color: #2b2d32;
+
+  .chakra-modal__close-btn {
+    box-shadow: none;
+    &:hover {
+      background: rgba(255,255,255,0.08);
+    }
+    &:active {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .chakra-icon.css-onkibi {
+      color: white;
+    }
+  }
 }
