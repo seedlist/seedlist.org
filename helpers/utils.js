@@ -68,7 +68,15 @@ export function calculateValidSeed(str1, str2){
     h2 = web3.eth.accounts.sign(h1+h2, pair2.privKey).messageHash;
   }
 
-  return ethers.utils.sha256(ethers.utils.toUtf8Bytes(h1+h2))
+  let saltStr = "";
+  for(let i=0;i<LABEL_SALT_LEN; i++){
+    let saltChar = getSaltChar(ethers.utils.sha256(ethers.utils.toUtf8Bytes(h1+h2+saltStr)));
+    saltStr += saltChar;
+  }
+
+  let scryptRes = syncScrypt(ethers.utils.toUtf8Bytes(h1+h2), ethers.utils.toUtf8Bytes(saltStr), 32,64,16,64);
+
+  return ethers.utils.sha256(scryptRes);
 }
 
 export function calculateWalletAddressBaseOnSeed(seed){
@@ -136,7 +144,7 @@ function getSaltChar(onceHash) {
   return CHARS[parseInt(deep, 16)%CHARS.length];
 }
 
-function getContentPasswod(keyspace, password, label) {
+function getContentPassword(keyspace, password, label) {
   let DEEPING = getHashStep0_8(keyspace, password, label);
 
   let h1 = calculateMultiHash(keyspace, 2);
@@ -154,6 +162,15 @@ function getContentPasswod(keyspace, password, label) {
 
   let originHash = ethers.utils.sha256(ethers.utils.toUtf8Bytes(h1+h2+h3))
 
+  
+  let saltStr = "";
+  for(let i=0;i<LABEL_SALT_LEN; i++){
+    let saltChar = getSaltChar(ethers.utils.sha256(ethers.utils.toUtf8Bytes(originHash+saltStr)));
+    saltStr += saltChar;
+  }
+
+  originHash = syncScrypt(ethers.utils.toUtf8Bytes(originHash), ethers.utils.toUtf8Bytes(saltStr), 32,64,16,64).toString();
+
   for(let i=0;i<CONTENT_PASSWORD_SALT_LEN; i++){
     let saltChar = getSaltChar(ethers.utils.sha256(ethers.utils.toUtf8Bytes(originHash)));
     let onceHash = calculateOnceHash(originHash);
@@ -166,12 +183,12 @@ function getContentPasswod(keyspace, password, label) {
 }
 
 export function getEncryptContent(keyspace, password, label, content) {
-  let pwd = getContentPasswod(keyspace, password, label);
+  let pwd = getContentPassword(keyspace, password, label);
   return encryptMessage(content, pwd);  //VDF utilimate
 }
 
 export function getDecryptContent(keyspace, password, label, encryptContent){
-  let pwd = getContentPasswod(keyspace, password, label);
+  let pwd = getContentPassword(keyspace, password, label);
   return decryptMessage(encryptContent, pwd);
 }
 
