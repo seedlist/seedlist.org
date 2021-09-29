@@ -84,7 +84,7 @@ export default function Home() {
   const [labelValue, setLabelValue] = useState("");
   const [contentValue, setContentValue] = useState("");
 
-  const [keyspacePlaceHolder, setKeyspacePlaceHolder]  = useState("keyspace name...");
+  const [keyspacePlaceHolder, setKeyspacePlaceHolder]  = useState("seedlist space name ...");
   const [pwdPlaceHolder, setPwdPlaceHolder]  = useState("password...");
   const [labelPlaceHolder, setLabelPlaceHolder]  = useState("label...");
   const [contentPlaceHolder, setContentPlaceHolder] = useState("content...");
@@ -386,7 +386,7 @@ export default function Home() {
                 doInitSpace();
             }}
          >
-         Init KeySpace
+        Sign up
          </Button>
   );
  },[keyspaceValue, pwdValue, isButtonLoading]);
@@ -678,14 +678,14 @@ useMemo((props)=>{
                 <Stack spacing={6}>
                   <Center>
                     <ButtonGroup spacing="1">
-                      <Tooltip placement="left" hasArrow={true} fontSize={18} label="User have to init keyspace before Save and Query content.">
+                      <Tooltip placement="left" hasArrow={true} fontSize={18} label="User have to sign up a spacename before save or query content.">
                           <Button
                             colorScheme="blackAlpha"
                             fontSize="xl"
                             onClick={() => enableKeySpace()}
                             w={["32", "40"]}
                           >
-                            Init Space
+                           Sign up
                           </Button>
                       </Tooltip>
 
