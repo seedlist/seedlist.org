@@ -15,7 +15,7 @@ export default function Footer() {
     <FooterContainer maxW="container.xl" centerContent>
       <HStack py={5} wrap="wrap" spacing={6}>
 
-      <Link href="https://github.com/NullBeings/seedlist-interface">
+      <Link href="https://github.com/seedlist/seedlist-interface">
           <a target="_blank">
               <HStack spacing={2}>
                   <Text fontSize="1xl" fontWeight="">
@@ -24,7 +24,7 @@ export default function Footer() {
               </HStack>
           </a>
       </Link>
-          <Link href="https://github.com/NullBeings/seedlist-interface/blob/main/LICENSE">
+          <Link href="https://github.com/seedlist/seedlist-interface/blob/main/LICENSE">
               <a target="_blank">
                   <HStack spacing={2}>
                       <Text fontSize="1xl" fontWeight="">
@@ -43,7 +43,7 @@ export default function Footer() {
               </a>
           </Link>
 
-          <Link href="https://github.com/NullBeings/seedlist-docs/blob/main/protocol/seedlist_en.md">
+          <Link href="https://github.com/seedlist/seedlist-docs/blob/main/protocol/seedlist_en.md">
               <a target="_blank">
                   <HStack spacing={2}>
                       <Text fontSize="1xl" fontWeight="">
@@ -58,17 +58,6 @@ export default function Footer() {
                   <HStack spacing={2}>
                       <Text fontSize="1xl" fontWeight="">
                           Discord
-                      </Text>
-                  </HStack>
-              </a>
-          </Link>
-
-
-          <Link href="https://github.com/NullBeings/seedlist-docs/blob/main/misc/donate.md">
-              <a target="_blank">
-                  <HStack spacing={2}>
-                      <Text fontSize="1xl" fontWeight="">
-                          Donate
                       </Text>
                   </HStack>
               </a>
