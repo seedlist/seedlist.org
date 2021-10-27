@@ -5,7 +5,7 @@ module.exports = {
     COMMIT_SHA:
       process.env.VERCEL_GITHUB_COMMIT_SHA || process.env.GITHUB_SHA || "master",
     //BLOCKNATIVE_KEY: "a0bab6a1-d0f5-4e98-a35c-1e2c35e8f37e",
-    CONTRACT_ADDR:"0x872435Da17D046bf7D9558484a54901611Dc9d59",
+    CONTRACT_ADDR:"0x472C43bAd9DE7b4A6E8510faC83ED655bF43D0B9",
     WEB3_PROVIDER_HTTPS:
       "https://rinkeby.infura.io/v3/a08d292fd61f4005998a9a31d02b7ee7",
     /*
