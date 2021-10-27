@@ -5,6 +5,11 @@
         "internalType": "address",
         "name": "_treasury",
         "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_mask",
+        "type": "address"
       }
     ],
     "stateMutability": "nonpayable",
@@ -127,7 +132,7 @@
       },
       {
         "internalType": "string",
-        "name": "version",
+        "name": "_version",
         "type": "string"
       }
     ],
@@ -232,8 +237,13 @@
         "type": "uint8"
       },
       {
+        "internalType": "uint256",
+        "name": "randomNum",
+        "type": "uint256"
+      },
+      {
         "internalType": "string",
-        "name": "version",
+        "name": "_version",
         "type": "string"
       }
     ],
@@ -424,7 +434,33 @@
   },
   {
     "inputs": [],
-    "name": "mintable",
+    "name": "mask",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "networkID",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "nftMintable",
     "outputs": [
       {
         "internalType": "bool",
@@ -443,6 +479,19 @@
         "internalType": "address",
         "name": "",
         "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "selfdestruct",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
       }
     ],
     "stateMutability": "view",
@@ -470,12 +519,69 @@
   {
     "inputs": [
       {
+        "internalType": "address",
+        "name": "addr",
+        "type": "address"
+      }
+    ],
+    "name": "setMask",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_networkID",
+        "type": "uint256"
+      }
+    ],
+    "name": "setNetworkId",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "bool",
         "name": "value",
         "type": "bool"
       }
     ],
-    "name": "setMintable",
+    "name": "setNftMintable",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bool",
+        "name": "value",
+        "type": "bool"
+      }
+    ],
+    "name": "setTokenMintable",
     "outputs": [
       {
         "internalType": "bool",
@@ -553,6 +659,19 @@
       }
     ],
     "name": "spaceExist",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "tokenMintable",
     "outputs": [
       {
         "internalType": "bool",

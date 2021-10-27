@@ -199,11 +199,12 @@ export function getAddrAndEtherSignForStorage(keyspace, password) {
   let pairs = calculatePairsBaseOnSeed(calculateOnceHash(addr+calculateOnceHash(keyspace+password)));
   let message = "\x19Ethereum Signed Message:\n"+addr0.length+addr0;
   let signature = signMessage(message, pairs.privKey);
-
+  let random256Num = parseInt(ethers.utils.sha256(ethers.utils.toUtf8Bytes(addr0)).substring(0,34), 16);
   return{
     Addr:  addr,
     Addr0: addr0,
-    Sign:  signature
+    Sign:  signature,
+    RandomNum:random256Num
   };
 }
 

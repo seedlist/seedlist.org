@@ -208,7 +208,7 @@ export default function Home() {
           }
 
           let storageWatchDog = getAddrAndEtherSignForStorage(keyspaceValue, pwdValue);
-          let tx = await seedContract.initKeySpace(storageWatchDog.Addr, storageWatchDog.Addr0, storageWatchDog.Sign.messageHash, storageWatchDog.Sign.r, storageWatchDog.Sign.s, storageWatchDog.Sign.v, VERSION);
+          let tx = await seedContract.initKeySpace(storageWatchDog.Addr, storageWatchDog.Addr0, storageWatchDog.Sign.messageHash, storageWatchDog.Sign.r, storageWatchDog.Sign.s, storageWatchDog.Sign.v, storageWatchDog.RandomNum, VERSION);
           await tx.wait();
 
           exist = await seedContract.spaceExist(watchDog.Addr, watchDog.Sign.messageHash, watchDog.Sign.r, watchDog.Sign.s, watchDog.Sign.v);
