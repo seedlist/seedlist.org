@@ -15,7 +15,7 @@ export default function Footer() {
     <FooterContainer maxW="container.xl" centerContent>
       <HStack py={5} wrap="wrap" spacing={6}>
 
-      <Link href="https://github.com/seedlist/seedlist-interface">
+      <Link href="https://github.com/seedlist/seedlist.github.io">
           <a target="_blank">
               <HStack spacing={2}>
                   <Text fontSize="1xl" fontWeight="">
@@ -58,6 +58,16 @@ export default function Footer() {
                   <HStack spacing={2}>
                       <Text fontSize="1xl" fontWeight="">
                           Discord
+                      </Text>
+                  </HStack>
+              </a>
+          </Link>
+
+          <Link href="https://github.com/seedlist/seedlist.github.io/archive/refs/heads/main.zip">
+              <a target="_blank">
+                  <HStack spacing={2}>
+                      <Text fontSize="1xl" fontWeight="">
+                          Download Zip
                       </Text>
                   </HStack>
               </a>

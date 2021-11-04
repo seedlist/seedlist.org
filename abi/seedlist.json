@@ -45,12 +45,6 @@
       },
       {
         "indexed": false,
-        "internalType": "string",
-        "name": "version",
-        "type": "string"
-      },
-      {
-        "indexed": false,
         "internalType": "bool",
         "name": "res",
         "type": "bool"
@@ -131,9 +125,9 @@
         "type": "string"
       },
       {
-        "internalType": "string",
-        "name": "_version",
-        "type": "string"
+        "internalType": "address",
+        "name": "receiver",
+        "type": "address"
       }
     ],
     "name": "addKey",
@@ -240,11 +234,6 @@
         "internalType": "uint256",
         "name": "randomNum",
         "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "_version",
-        "type": "string"
       }
     ],
     "name": "initKeySpace",
@@ -321,11 +310,6 @@
         "internalType": "uint256",
         "name": "updateTime",
         "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "contractVersion",
-        "type": "string"
       }
     ],
     "stateMutability": "view",
@@ -374,11 +358,6 @@
         "internalType": "uint256",
         "name": "updateTime",
         "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "contractVersion",
-        "type": "string"
       }
     ],
     "stateMutability": "view",
@@ -479,19 +458,6 @@
         "internalType": "address",
         "name": "",
         "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "selfdestruct",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
       }
     ],
     "stateMutability": "view",
