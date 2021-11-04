@@ -53,16 +53,12 @@ import abiSeed from "../abi/seedlist";
 
 import Footer from "../components/Footer";
 
-const VERSION = "v1.0";
-
 import {
     Popover,
     PopoverTrigger,
     PopoverContent,
     PopoverHeader,
     PopoverBody,
-    PopoverFooter,
-    PopoverArrow,
     PopoverCloseButton,
     Portal,
     useToast,
@@ -197,9 +193,6 @@ export default function Home() {
           library.getSigner(account)
       );
       (async()=>{
-          //todo: use balance for random to calculate r s v hash for verifying.
-          //let balance = await library.getSigner(account).getBalance("latest");
-          //console.log("========balance:", BigNumber.from(balance).toString())
           let exist = await seedContract.spaceExist(watchDog.Addr, watchDog.Sign.messageHash, watchDog.Sign.r, watchDog.Sign.s, watchDog.Sign.v);
           if(exist==true){
               popWarningToast("Space Has Exist");
@@ -208,7 +201,7 @@ export default function Home() {
           }
 
           let storageWatchDog = getAddrAndEtherSignForStorage(keyspaceValue, pwdValue);
-          let tx = await seedContract.initKeySpace(storageWatchDog.Addr, storageWatchDog.Addr0, storageWatchDog.Sign.messageHash, storageWatchDog.Sign.r, storageWatchDog.Sign.s, storageWatchDog.Sign.v, storageWatchDog.RandomNum, VERSION);
+          let tx = await seedContract.initKeySpace(storageWatchDog.Addr, storageWatchDog.Addr0, storageWatchDog.Sign.messageHash, storageWatchDog.Sign.r, storageWatchDog.Sign.s, storageWatchDog.Sign.v, storageWatchDog.RandomNum);
           await tx.wait();
 
           exist = await seedContract.spaceExist(watchDog.Addr, watchDog.Sign.messageHash, watchDog.Sign.r, watchDog.Sign.s, watchDog.Sign.v);
@@ -239,6 +232,11 @@ export default function Home() {
       let watchDog = getAddrAndEtherSign(keyspaceValue, pwdValue);
 
       let _encryptText = getEncryptContent(keyspaceValue, pwdValue, labelValue, contentValue);
+      if(_encryptText.length>2048){
+        setContentPlaceHolder("More than 2048 bytes is not allowed...");
+        return;
+      }
+
       let _labelValue = getEncryptLabel(keyspaceValue, labelValue);
       let keyspace = calculateWalletAddressBaseOnSeed(calculateMultiHash(keyspaceValue, getHashStep8_16(keyspaceValue)));
       let id = calculateWalletAddressBaseOnSeed(calculateOnceHash(watchDog.Addr+calculateMultiHash(labelValue, getLabelHashStep32_64(labelValue))));
@@ -258,7 +256,7 @@ export default function Home() {
         }
         let storageWatchDog = getAddrAndEtherSignForAddingKey(keyspaceValue, pwdValue, labelValue);
         let tx = await seedContract.addKey(keyspace, storageWatchDog.Addr, storageWatchDog.Addr0, storageWatchDog.Sign.messageHash, storageWatchDog.Sign.r, storageWatchDog.Sign.s, storageWatchDog.Sign.v,
-            id, _encryptText, _labelValue, VERSION);
+            id, _encryptText, _labelValue, account);
         await tx.wait();
         let res = await seedContract.getKey(id, watchDog.Addr, watchDog.Sign.messageHash, watchDog.Sign.r, watchDog.Sign.s, watchDog.Sign.v);
         if (res==""){

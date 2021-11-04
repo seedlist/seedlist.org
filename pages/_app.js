@@ -16,7 +16,6 @@ export default function SeedApp({ Component, pageProps }) {
   return (
     <PlausibleProvider
       domain="seedlist.org"
-      customDomain="https://analytics.nymm.app"
       selfHosted
     >
       <ChakraProvider theme={theme}>
