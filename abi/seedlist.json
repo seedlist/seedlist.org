@@ -10,6 +10,11 @@
         "internalType": "address",
         "name": "_mask",
         "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_seedToken",
+        "type": "address"
       }
     ],
     "stateMutability": "nonpayable",
@@ -115,6 +120,11 @@
         "type": "address"
       },
       {
+        "internalType": "address",
+        "name": "kid",
+        "type": "address"
+      },
+      {
         "internalType": "string",
         "name": "cryptoKey",
         "type": "string"
@@ -123,11 +133,6 @@
         "internalType": "string",
         "name": "labelName",
         "type": "string"
-      },
-      {
-        "internalType": "address",
-        "name": "receiver",
-        "type": "address"
       }
     ],
     "name": "addKey",
@@ -138,6 +143,74 @@
         "type": "bool"
       }
     ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "keyspace",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "addr",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "addr0",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "addrHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "r",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "s",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint8",
+        "name": "v",
+        "type": "uint8"
+      },
+      {
+        "internalType": "address",
+        "name": "id",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "kid0",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "kid1",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "cryptoKey",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "labelName",
+        "type": "string"
+      }
+    ],
+    "name": "addSplitKey",
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -189,6 +262,60 @@
     ],
     "name": "getKey",
     "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "addr",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "addrHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "r",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "s",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint8",
+        "name": "v",
+        "type": "uint8"
+      },
+      {
+        "internalType": "address",
+        "name": "kid0",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "kid1",
+        "type": "address"
+      }
+    ],
+    "name": "getSplitKey",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      },
       {
         "internalType": "string",
         "name": "",
@@ -453,6 +580,19 @@
   {
     "inputs": [],
     "name": "owner",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "seedToken",
     "outputs": [
       {
         "internalType": "address",
@@ -778,6 +918,30 @@
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "receiver",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "withdraw",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "nonpayable",
     "type": "function"
   }
 ]
