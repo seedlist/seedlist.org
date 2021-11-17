@@ -2,7 +2,7 @@ module.exports = {
   reactStrictMode: true,
   assetPrefix:"./",
   env: {
-    CONTRACT_ADDR:"0xd700a119D906e8e48f868F01865741Aca2718A17",
+    CONTRACT_ADDR:"0x6d89587672fb830A6B9Fb66E665528A38779e4c1",
     WEB3_PROVIDER_HTTPS:
       "https://rinkeby.infura.io/v3/a08d292fd61f4005998a9a31d02b7ee7",
     /*

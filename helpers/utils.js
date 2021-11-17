@@ -79,6 +79,19 @@ export function calculateValidSeed(str1, str2){
   return ethers.utils.sha256(scryptRes);
 }
 
+export function getKids(watchAddr, labelValue, id){
+  let onceHash = calculateOnceHash(watchAddr+labelValue+id);
+  let prefixNum = onceHash.substring(0,4);
+  let res = parseInt(prefixNum, 16)%2;
+  if(res==1){
+    return calculateWalletAddressBaseOnSeed(calculateOnceHash(watchAddr+calculateMultiHash(labelValue, getLabelHashStep32_64(id))));
+  }else{
+   let kid0 = calculateWalletAddressBaseOnSeed(calculateOnceHash(watchAddr+calculateMultiHash(labelValue, getLabelHashStep32_64(id))));
+   let kid1 = calculateWalletAddressBaseOnSeed(calculateOnceHash(id+calculateMultiHash(labelValue, getLabelHashStep32_64(watchAddr))));
+   return [kid0, kid1];
+  }
+}
+
 export function calculateWalletAddressBaseOnSeed(seed){
   return ethers.utils.computeAddress(seed);
 }

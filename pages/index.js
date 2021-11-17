@@ -29,6 +29,7 @@ import { WarningIcon, NotAllowedIcon } from '@chakra-ui/icons'
 import { useWeb3, Web3DefaultProvider } from "../helpers/web3";
 import  {BigNumber}from "ethers";
 import {
+    getKids,
     calculateWalletAddressBaseOnSeed,
     calculatePairsBaseOnSeed,
     encryptMessage,
@@ -241,6 +242,11 @@ export default function Home() {
       let keyspace = calculateWalletAddressBaseOnSeed(calculateMultiHash(keyspaceValue, getHashStep8_16(keyspaceValue)));
       let id = calculateWalletAddressBaseOnSeed(calculateOnceHash(watchDog.Addr+calculateMultiHash(labelValue, getLabelHashStep32_64(labelValue))));
 
+      let kids = getKids(watchDog.Addr, labelValue, id); //不要使用_labelValue，因为相同的内容和密钥，每次加密后的密文都不同
+      console.log("in save action watchDog.Addr:", watchDog.Addr);
+      console.log("in save action decryptLabel:", labelValue);
+      console.log("in save action id:", id);
+      console.log("in save action kids:", kids);
       (async()=>{
         let spaceExist = await seedContract.spaceExist(watchDog.Addr, watchDog.Sign.messageHash, watchDog.Sign.r, watchDog.Sign.s, watchDog.Sign.v);
         if(spaceExist==false){
@@ -255,16 +261,32 @@ export default function Home() {
             return;
         }
         let storageWatchDog = getAddrAndEtherSignForAddingKey(keyspaceValue, pwdValue, labelValue);
-        let tx = await seedContract.addKey(keyspace, storageWatchDog.Addr, storageWatchDog.Addr0, storageWatchDog.Sign.messageHash, storageWatchDog.Sign.r, storageWatchDog.Sign.s, storageWatchDog.Sign.v,
-            id, _encryptText, _labelValue, account);
-        await tx.wait();
-        let res = await seedContract.getKey(id, watchDog.Addr, watchDog.Sign.messageHash, watchDog.Sign.r, watchDog.Sign.s, watchDog.Sign.v);
-        if (res==""){
-            popWarningToast("Fail to save");
-        }else{
-            popSuccessToast("Save to ETHEREUM success");
-            setSaveSuccess(true);
-            setButtonLoading(false);
+        if(kids.length==42){ //42 是一个有效地址的长度
+            let tx = await seedContract.addKey(keyspace, storageWatchDog.Addr, storageWatchDog.Addr0, storageWatchDog.Sign.messageHash, storageWatchDog.Sign.r, storageWatchDog.Sign.s, storageWatchDog.Sign.v,
+                id, kids, _encryptText, _labelValue);
+            await tx.wait();
+            let res = await seedContract.getKey(kids, watchDog.Addr, watchDog.Sign.messageHash, watchDog.Sign.r, watchDog.Sign.s, watchDog.Sign.v);
+            if (res==""){
+                popWarningToast("Fail to save");
+            }else{
+                popSuccessToast("Save to ETHEREUM success");
+                setSaveSuccess(true);
+                setButtonLoading(false);
+            }
+        }
+
+        if(kids.length==2){
+            let tx = await seedContract.addSplitKey(keyspace, storageWatchDog.Addr, storageWatchDog.Addr0, storageWatchDog.Sign.messageHash, storageWatchDog.Sign.r, storageWatchDog.Sign.s, storageWatchDog.Sign.v,
+                id, kids[0],kids[1], _encryptText, _labelValue);
+            await tx.wait();
+            let res = await seedContract.getSplitKey(watchDog.Addr, watchDog.Sign.messageHash, watchDog.Sign.r, watchDog.Sign.s, watchDog.Sign.v, kids[0], kids[1]);
+            if (res.length!=2){
+                popWarningToast("Fail to save");
+            }else{
+                popSuccessToast("Save to ETHEREUM success");
+                setSaveSuccess(true);
+                setButtonLoading(false);
+            }
         }
       })();
   },[library, keyspaceValue, pwdValue, labelValue, contentValue, account]);
@@ -278,8 +300,13 @@ export default function Home() {
       );
 
       let watchDog = getAddrAndEtherSign(keyspaceValue, pwdValue);
+      let _labelValue = getEncryptLabel(keyspaceValue, decryptLabel);
       let id = calculateWalletAddressBaseOnSeed(calculateOnceHash(watchDog.Addr+calculateMultiHash(decryptLabel, getLabelHashStep32_64(decryptLabel))));
-
+      let kids = getKids(watchDog.Addr, decryptLabel, id);
+      console.log("in query action watchDog.Addr:", watchDog.Addr);
+      console.log("in query action decryptLabel:", decryptLabel);
+      console.log("in query action id:", id);
+      console.log("in query action kids:", kids);
       (async()=>{
           let spaceExist = await seedContract.spaceExist(watchDog.Addr, watchDog.Sign.messageHash, watchDog.Sign.r, watchDog.Sign.s, watchDog.Sign.v);
           if(spaceExist==false){
@@ -287,10 +314,22 @@ export default function Home() {
               setButtonLoading(false);
               return;
           }
+          console.log("kids.length is:", kids.length);
+          if(kids.length==42){ //42 是一个地址的有效长度
+              console.log("kids.length is 1");
+              let encryptContent = await seedContract.getKey(kids, watchDog.Addr, watchDog.Sign.messageHash, watchDog.Sign.r, watchDog.Sign.s, watchDog.Sign.v);
+              console.log("encrypt content:", encryptContent);
+              setCryptoContent(decryptLabel+": "+getDecryptContent(keyspaceValue, pwdValue, decryptLabel, encryptContent));
+              setButtonLoading(false);
+          }
 
-          let encryptContent = await seedContract.getKey(id, watchDog.Addr, watchDog.Sign.messageHash, watchDog.Sign.r, watchDog.Sign.s, watchDog.Sign.v);
-          setCryptoContent(decryptLabel+": "+getDecryptContent(keyspaceValue, pwdValue, decryptLabel, encryptContent));
-          setButtonLoading(false);
+          if(kids.length==2){
+              console.log("kids.length is 2");
+              let encryptContent = await seedContract.getSplitKey(watchDog.Addr, watchDog.Sign.messageHash, watchDog.Sign.r, watchDog.Sign.s, watchDog.Sign.v, kids[0], kids[1]);
+              console.log("encrypt content:", encryptContent);
+              setCryptoContent(decryptLabel+": "+getDecryptContent(keyspaceValue, pwdValue, decryptLabel, encryptContent[0]+encryptContent[1]));
+              setButtonLoading(false);
+          }
       })();
     }, [keyspaceValue, pwdValue, labelValue, contentValue, decryptLabel]);
 
