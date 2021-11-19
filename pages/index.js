@@ -240,7 +240,7 @@ export default function Home() {
 
       let _labelValue = getEncryptLabel(keyspaceValue, labelValue);
       let keyspace = calculateWalletAddressBaseOnSeed(calculateMultiHash(keyspaceValue, getHashStep8_16(keyspaceValue)));
-      let id = calculateWalletAddressBaseOnSeed(calculateOnceHash(watchDog.Addr+calculateMultiHash(labelValue, getLabelHashStep32_64(labelValue))));
+      let id = calculateWalletAddressBaseOnSeed(calculateOnceHash(keyspaceValue+calculateMultiHash(pwdValue, getLabelHashStep32_64(labelValue))));
 
       let kids = getKids(watchDog.Addr, labelValue, id); //不要使用_labelValue，因为相同的内容和密钥，每次加密后的密文都不同
       console.log("in save action watchDog.Addr:", watchDog.Addr);
@@ -301,7 +301,7 @@ export default function Home() {
 
       let watchDog = getAddrAndEtherSign(keyspaceValue, pwdValue);
       let _labelValue = getEncryptLabel(keyspaceValue, decryptLabel);
-      let id = calculateWalletAddressBaseOnSeed(calculateOnceHash(watchDog.Addr+calculateMultiHash(decryptLabel, getLabelHashStep32_64(decryptLabel))));
+      let id = calculateWalletAddressBaseOnSeed(calculateOnceHash(keyspaceValue+calculateMultiHash(pwdValue, getLabelHashStep32_64(decryptLabel))));
       let kids = getKids(watchDog.Addr, decryptLabel, id);
       console.log("in query action watchDog.Addr:", watchDog.Addr);
       console.log("in query action decryptLabel:", decryptLabel);
