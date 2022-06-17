@@ -220,6 +220,10 @@ msgstr "Switch"
 #~ msgstr "Switch to"
 
 #: src/components/Dialog/PasswordInSave.tsx
+msgid "Token Address:"
+msgstr "Token Address:"
+
+#: src/components/Dialog/PasswordInSave.tsx
 msgid "Token Receiver:"
 msgstr "Token Receiver:"
 

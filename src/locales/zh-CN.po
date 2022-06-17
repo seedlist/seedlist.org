@@ -200,6 +200,10 @@ msgid "Switch"
 msgstr "切换"
 
 #: src/components/Dialog/PasswordInSave.tsx
+msgid "Token Address:"
+msgstr "通证地址:"
+
+#: src/components/Dialog/PasswordInSave.tsx
 msgid "Token Receiver:"
 msgstr "通证接收者:"
 

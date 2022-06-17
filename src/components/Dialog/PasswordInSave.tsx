@@ -70,6 +70,10 @@ const PasswordInSave:React.FC<IBaseProps> = (props:IBaseProps)=>{
 						<Trans>Token Receiver: </Trans>
 					</Text>
 					<Input  id='username' placeholder={receiverAddr.substr(0,10)+" ... "+ receiverAddr.substr(-8)} />
+					<Text marginY="10px" color="white">
+						<Trans>Token Address:</Trans>
+					</Text>
+					<Text marginY="10px" color="white"> {process.env.REACT_APP_SEED_TOKEN_ADDR} </Text>
 				</Box>
 			</Stack>
 		);
