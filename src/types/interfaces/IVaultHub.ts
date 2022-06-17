@@ -27,6 +27,7 @@ export interface IVaultHubInterface extends utils.Interface {
     "getLabelNameByIndex(address,uint256,uint64,uint8,bytes32,bytes32)": FunctionFragment;
     "hasMinted(address,uint256,uint8,bytes32,bytes32)": FunctionFragment;
     "initPrivateVault(address,uint256,uint8,bytes32,bytes32)": FunctionFragment;
+    "labelExist(address,address,uint256,uint8,bytes32,bytes32)": FunctionFragment;
     "queryPrivateDataByIndex(address,uint64,uint256,uint8,bytes32,bytes32)": FunctionFragment;
     "queryPrivateDataByName(address,address,uint256,uint8,bytes32,bytes32)": FunctionFragment;
     "queryPrivateVaultAddress(address,uint256,uint8,bytes32,bytes32)": FunctionFragment;
@@ -41,6 +42,7 @@ export interface IVaultHubInterface extends utils.Interface {
       | "getLabelNameByIndex"
       | "hasMinted"
       | "initPrivateVault"
+      | "labelExist"
       | "queryPrivateDataByIndex"
       | "queryPrivateDataByName"
       | "queryPrivateVaultAddress"
@@ -68,6 +70,10 @@ export interface IVaultHubInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "initPrivateVault",
     values: [string, BigNumberish, BigNumberish, BytesLike, BytesLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "labelExist",
+    values: [string, string, BigNumberish, BigNumberish, BytesLike, BytesLike]
   ): string;
   encodeFunctionData(
     functionFragment: "queryPrivateDataByIndex",
@@ -133,6 +139,7 @@ export interface IVaultHubInterface extends utils.Interface {
     functionFragment: "initPrivateVault",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "labelExist", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "queryPrivateDataByIndex",
     data: BytesLike
@@ -219,6 +226,16 @@ export interface IVaultHub extends BaseContract {
       s: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
+
+    labelExist(
+      addr: string,
+      labelHash: string,
+      deadline: BigNumberish,
+      v: BigNumberish,
+      r: BytesLike,
+      s: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
 
     queryPrivateDataByIndex(
       addr: string,
@@ -321,6 +338,16 @@ export interface IVaultHub extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  labelExist(
+    addr: string,
+    labelHash: string,
+    deadline: BigNumberish,
+    v: BigNumberish,
+    r: BytesLike,
+    s: BytesLike,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
+
   queryPrivateDataByIndex(
     addr: string,
     index: BigNumberish,
@@ -415,6 +442,16 @@ export interface IVaultHub extends BaseContract {
 
     initPrivateVault(
       addr: string,
+      deadline: BigNumberish,
+      v: BigNumberish,
+      r: BytesLike,
+      s: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
+
+    labelExist(
+      addr: string,
+      labelHash: string,
       deadline: BigNumberish,
       v: BigNumberish,
       r: BytesLike,
@@ -526,6 +563,16 @@ export interface IVaultHub extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    labelExist(
+      addr: string,
+      labelHash: string,
+      deadline: BigNumberish,
+      v: BigNumberish,
+      r: BytesLike,
+      s: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     queryPrivateDataByIndex(
       addr: string,
       index: BigNumberish,
@@ -626,6 +673,16 @@ export interface IVaultHub extends BaseContract {
       r: BytesLike,
       s: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    labelExist(
+      addr: string,
+      labelHash: string,
+      deadline: BigNumberish,
+      v: BigNumberish,
+      r: BytesLike,
+      s: BytesLike,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     queryPrivateDataByIndex(

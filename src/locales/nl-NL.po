@@ -238,3 +238,7 @@ msgstr ""
 #: src/components/Wallet/wallet.tsx
 msgid "Wallet"
 msgstr ""
+
+#: src/components/Header/seedlist.tsx
+msgid "version"
+msgstr ""

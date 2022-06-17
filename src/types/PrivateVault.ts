@@ -30,6 +30,7 @@ export interface PrivateVaultInterface extends utils.Interface {
     "DOMAIN_VERSION()": FunctionFragment;
     "GET_PRIVATE_DATA_BY_INDEX_PERMIT_TYPE_HASH()": FunctionFragment;
     "GET_PRIVATE_DATA_BY_NAME_PERMIT_TYPE_HASH()": FunctionFragment;
+    "LABEL_EXIST_PERMIT_TYPE_HASH()": FunctionFragment;
     "LABEL_NAME_PERMIT_TYPE_HASH()": FunctionFragment;
     "SAVE_WITHOUT_MINTING_PERMIT_TYPE_HASH()": FunctionFragment;
     "SAVE_WITH_MINTING_PERMIT_TYPE_HASH()": FunctionFragment;
@@ -37,6 +38,8 @@ export interface PrivateVaultInterface extends utils.Interface {
     "getPrivateDataByIndexDirectly(uint64,uint256,uint8,bytes32,bytes32)": FunctionFragment;
     "getPrivateDataByName(address)": FunctionFragment;
     "getPrivateDataByNameDirectly(address,uint256,uint8,bytes32,bytes32)": FunctionFragment;
+    "labelIsExist(address)": FunctionFragment;
+    "labelIsExistDirectly(address,uint256,uint8,bytes32,bytes32)": FunctionFragment;
     "labelName(uint64)": FunctionFragment;
     "labelNameDirectly(uint64,uint256,uint8,bytes32,bytes32)": FunctionFragment;
     "minted()": FunctionFragment;
@@ -55,6 +58,7 @@ export interface PrivateVaultInterface extends utils.Interface {
       | "DOMAIN_VERSION"
       | "GET_PRIVATE_DATA_BY_INDEX_PERMIT_TYPE_HASH"
       | "GET_PRIVATE_DATA_BY_NAME_PERMIT_TYPE_HASH"
+      | "LABEL_EXIST_PERMIT_TYPE_HASH"
       | "LABEL_NAME_PERMIT_TYPE_HASH"
       | "SAVE_WITHOUT_MINTING_PERMIT_TYPE_HASH"
       | "SAVE_WITH_MINTING_PERMIT_TYPE_HASH"
@@ -62,6 +66,8 @@ export interface PrivateVaultInterface extends utils.Interface {
       | "getPrivateDataByIndexDirectly"
       | "getPrivateDataByName"
       | "getPrivateDataByNameDirectly"
+      | "labelIsExist"
+      | "labelIsExistDirectly"
       | "labelName"
       | "labelNameDirectly"
       | "minted"
@@ -97,6 +103,10 @@ export interface PrivateVaultInterface extends utils.Interface {
     values?: undefined
   ): string;
   encodeFunctionData(
+    functionFragment: "LABEL_EXIST_PERMIT_TYPE_HASH",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
     functionFragment: "LABEL_NAME_PERMIT_TYPE_HASH",
     values?: undefined
   ): string;
@@ -122,6 +132,14 @@ export interface PrivateVaultInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "getPrivateDataByNameDirectly",
+    values: [string, BigNumberish, BigNumberish, BytesLike, BytesLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "labelIsExist",
+    values: [string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "labelIsExistDirectly",
     values: [string, BigNumberish, BigNumberish, BytesLike, BytesLike]
   ): string;
   encodeFunctionData(
@@ -192,6 +210,10 @@ export interface PrivateVaultInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "LABEL_EXIST_PERMIT_TYPE_HASH",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "LABEL_NAME_PERMIT_TYPE_HASH",
     data: BytesLike
   ): Result;
@@ -217,6 +239,14 @@ export interface PrivateVaultInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "getPrivateDataByNameDirectly",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "labelIsExist",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "labelIsExistDirectly",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "labelName", data: BytesLike): Result;
@@ -289,6 +319,8 @@ export interface PrivateVault extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[string]>;
 
+    LABEL_EXIST_PERMIT_TYPE_HASH(overrides?: CallOverrides): Promise<[string]>;
+
     LABEL_NAME_PERMIT_TYPE_HASH(overrides?: CallOverrides): Promise<[string]>;
 
     SAVE_WITHOUT_MINTING_PERMIT_TYPE_HASH(
@@ -326,6 +358,20 @@ export interface PrivateVault extends BaseContract {
       s: BytesLike,
       overrides?: CallOverrides
     ): Promise<[string]>;
+
+    labelIsExist(
+      labelHash: string,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
+
+    labelIsExistDirectly(
+      labelHash: string,
+      deadline: BigNumberish,
+      v: BigNumberish,
+      r: BytesLike,
+      s: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
 
     labelName(
       index: BigNumberish,
@@ -398,6 +444,8 @@ export interface PrivateVault extends BaseContract {
     overrides?: CallOverrides
   ): Promise<string>;
 
+  LABEL_EXIST_PERMIT_TYPE_HASH(overrides?: CallOverrides): Promise<string>;
+
   LABEL_NAME_PERMIT_TYPE_HASH(overrides?: CallOverrides): Promise<string>;
 
   SAVE_WITHOUT_MINTING_PERMIT_TYPE_HASH(
@@ -435,6 +483,17 @@ export interface PrivateVault extends BaseContract {
     s: BytesLike,
     overrides?: CallOverrides
   ): Promise<string>;
+
+  labelIsExist(labelHash: string, overrides?: CallOverrides): Promise<boolean>;
+
+  labelIsExistDirectly(
+    labelHash: string,
+    deadline: BigNumberish,
+    v: BigNumberish,
+    r: BytesLike,
+    s: BytesLike,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
 
   labelName(index: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
@@ -504,6 +563,8 @@ export interface PrivateVault extends BaseContract {
       overrides?: CallOverrides
     ): Promise<string>;
 
+    LABEL_EXIST_PERMIT_TYPE_HASH(overrides?: CallOverrides): Promise<string>;
+
     LABEL_NAME_PERMIT_TYPE_HASH(overrides?: CallOverrides): Promise<string>;
 
     SAVE_WITHOUT_MINTING_PERMIT_TYPE_HASH(
@@ -541,6 +602,20 @@ export interface PrivateVault extends BaseContract {
       s: BytesLike,
       overrides?: CallOverrides
     ): Promise<string>;
+
+    labelIsExist(
+      labelHash: string,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
+
+    labelIsExistDirectly(
+      labelHash: string,
+      deadline: BigNumberish,
+      v: BigNumberish,
+      r: BytesLike,
+      s: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
 
     labelName(index: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
@@ -613,6 +688,8 @@ export interface PrivateVault extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    LABEL_EXIST_PERMIT_TYPE_HASH(overrides?: CallOverrides): Promise<BigNumber>;
+
     LABEL_NAME_PERMIT_TYPE_HASH(overrides?: CallOverrides): Promise<BigNumber>;
 
     SAVE_WITHOUT_MINTING_PERMIT_TYPE_HASH(
@@ -644,6 +721,20 @@ export interface PrivateVault extends BaseContract {
 
     getPrivateDataByNameDirectly(
       name: string,
+      deadline: BigNumberish,
+      v: BigNumberish,
+      r: BytesLike,
+      s: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    labelIsExist(
+      labelHash: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    labelIsExistDirectly(
+      labelHash: string,
       deadline: BigNumberish,
       v: BigNumberish,
       r: BytesLike,
@@ -723,6 +814,10 @@ export interface PrivateVault extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    LABEL_EXIST_PERMIT_TYPE_HASH(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     LABEL_NAME_PERMIT_TYPE_HASH(
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
@@ -756,6 +851,20 @@ export interface PrivateVault extends BaseContract {
 
     getPrivateDataByNameDirectly(
       name: string,
+      deadline: BigNumberish,
+      v: BigNumberish,
+      r: BytesLike,
+      s: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    labelIsExist(
+      labelHash: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    labelIsExistDirectly(
+      labelHash: string,
       deadline: BigNumberish,
       v: BigNumberish,
       r: BytesLike,

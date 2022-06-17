@@ -151,11 +151,26 @@ const PasswordInSave:React.FC<IBaseProps> = (props:IBaseProps)=>{
 			setSaveBtnIsLoading(false);
 			return;
 		}
+		let labelHash = await encryptor.labelHash(labelName);
+		let labelExistParams = await encryptor.calculateLabelExistParams(vaultName, password, labelHash);
+		let exist:boolean = await etherClient.client?.labelExist(labelExistParams.address, labelHash, labelExistParams.deadline,
+			labelExistParams.signature.r, labelExistParams.signature.s, labelExistParams.signature.v);
+
+		if(exist === true){
+			if(lang==='zh-CN'){
+				warningToast("一个标签只能是用一次");
+			}
+
+			if(lang==='en-US'){
+				warningToast("A label is forbidden used twice");
+			}
+			setSaveBtnIsLoading(false);
+			return;
+		}
 
 		let totalItemsParams = await encryptor.calculateTotalSavedItemsParams(vaultName, password);
 		let total:number = await etherClient.client?.totalSavedItems(totalItemsParams.address, totalItemsParams.deadline, totalItemsParams.signature.r,
 			totalItemsParams.signature.s, totalItemsParams.signature.v);
-		let labelHash = await encryptor.labelHash(labelName);
 
 		let cryptoLabel = "";
 		let cryptoContent = "";

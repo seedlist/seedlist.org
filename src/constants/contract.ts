@@ -1,5 +1,5 @@
 // Get From Contract Interface By RPC
-export const DOMAIN_SEPARATOR = "0xd798694e56463d62cb537445b3cb4d4ab3449fa9f5e6eeb80a3b3f985a0f1523";
+export const DOMAIN_SEPARATOR = "0xc079b5f7046ca979a2ef7e5ec5586881db903159300b1d35045ab3c4b268b881";
 
 // keccak256('savePrivateDataWithMinting(address addr, string memory data, string memory cryptoLabel, address labelHash,
 // address receiver, uint256 deadline)');
@@ -36,6 +36,9 @@ export const GET_LABEL_NAME_BY_INDEX = "0xbd5bc3ca2c7ea773b900edfe638ad04ce3697b
 //keccak256('queryPrivateVaultAddress(address addr, uint256 deadline)')
 export const QUERY_PRIVATE_VAULT_ADDRESS_PERMIT_TYPE_HASH = "0x21b7e085fb49739c78b83ddb0a8a7e4b469211d08958f57d52ff68325943de04";
 
+//keccak256('labelExist(address addr, address labelHash, uint256 deadline)')
+export const LABEL_EXIST_TYPE_HASH = "0xac1275bd89417f307b1ae27de4967e4910dfab4abd173eb3e6a3352c21ae42fe";
+
 // =========== private vault contract caller used ===========
 //keccak256('labelNameDirectly(uint64 index, uint256 deadline)')
 export const LABEL_NAME_PERMIT_TYPE_HASH =
@@ -56,3 +59,6 @@ export const  SAVE_WITHOUT_MINTING_PERMIT_TYPE_HASH =
 //keccak256('saveWithMintingDirectly(string memory data, string memory cryptoLabel, address labelHash, uint256 deadline)')
 export const SAVE_WITH_MINTING_PERMIT_TYPE_HASH =
 	"0x8774f567563ee2634c371978f5cfa8e41e5d255912344cb6b7d652f94c66c8a4";
+
+//keccak256('labelIsExistDirectly(address labelHash, uint256 deadline)')
+export const LABEL_EXIST_DIRECTLY_PERMIT_TYPE_HASH = "0x5e9a0e1424c7f33522faa862eafa09a676e96246da16c8b58d5803ba8010584f";

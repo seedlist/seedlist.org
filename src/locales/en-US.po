@@ -238,3 +238,7 @@ msgstr "VaultName&Password"
 #: src/components/Wallet/wallet.tsx
 msgid "Wallet"
 msgstr "Wallet"
+
+#: src/components/Header/seedlist.tsx
+msgid "version"
+msgstr "version"

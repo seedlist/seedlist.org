@@ -214,6 +214,13 @@ class SeedlistClient {
 		return this.seedlist.totalSavedItems(addr, deadline, v, r, s);
 	}
 
+	public async labelExist(addr:string, labelHash:string, deadline:number, r:string, s:string, v:number, config:PayableOverrides={}):Promise<any>{
+		if(this.provider === undefined || this.seedlist === undefined || this.signer === undefined){
+			return Promise.reject("need to connect a valid provider and signer")
+		}
+		return this.seedlist.labelExist(addr, labelHash, deadline, v, r, s);
+	}
+
 	public async queryPrivateVaultAddress(addr:string, deadline:number, r:string, s:string, v:number, config:PayableOverrides={}):Promise<any>{
 		if(this.provider === undefined || this.seedlist === undefined || this.signer === undefined){
 			return Promise.reject("need to connect a valid provider and signer")
@@ -390,6 +397,18 @@ class PrivateVaultClient {
 		}
 
 		return this.seedlist.getPrivateDataByIndexDirectly(index, deadline, v, r, s)
+	}
+
+	public async privateVaultLabelExist(
+		labelHash:string, deadline:number,
+		r:string, s:string, v:number, config:PayableOverrides={}):Promise<any>{
+
+		if(this.provider === undefined || this.seedlist === undefined || this.signer === undefined){
+			return Promise.reject("need to connect a valid provider and signer")
+		}
+
+		return this.seedlist.labelIsExistDirectly(labelHash, deadline, v, r, s)
+
 	}
 
 	public async privateVaultGetDataByName(

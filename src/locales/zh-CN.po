@@ -218,3 +218,7 @@ msgstr "基于已注册的保险库"
 #: src/components/Wallet/wallet.tsx
 msgid "Wallet"
 msgstr "钱包"
+
+#: src/components/Header/seedlist.tsx
+msgid "version"
+msgstr "版本"

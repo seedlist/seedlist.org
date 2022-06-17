@@ -11,7 +11,8 @@ import {Vault} from "../pages/vault";
 import {BrowserRouter as Router} from "react-router-dom";
 import {NotFound} from "../pages/error/404";
 import {Donate} from "../pages/donate";
-import {MIT} from "../pages/MIT";
+import {License} from "../pages/license";
+import {Document} from "../pages/docs";
 
 const App:React.FC<IBaseProps> = (props:IBaseProps)=>{
 
@@ -30,7 +31,8 @@ const App:React.FC<IBaseProps> = (props:IBaseProps)=>{
 							<Route path="/identity" element={<Identity />}> </Route>
 							<Route path="/*" element={<NotFound />}> </Route>
 							<Route path="/donate" element={<Donate />}> </Route>
-							<Route path="/MIT" element={<MIT />}> </Route>
+							<Route path="/document" element={<Document />}> </Route>
+							<Route path="/license" element={<License />}> </Route>
 						</Routes>
 						<Footer/>
 					</Router>

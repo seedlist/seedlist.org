@@ -9,7 +9,10 @@ import {
 	GET_PRIVATE_DATA_BY_NAME_PERMIT_TYPE_HASH,
 	HAS_MINTED_PERMIT_TYPE_HASH,
 	INDEX_QUERY_PERMIT_TYPE_HASH,
-	INIT_VAULT_PERMIT_TYPE_HASH, LABEL_NAME_PERMIT_TYPE_HASH,
+	INIT_VAULT_PERMIT_TYPE_HASH,
+	LABEL_EXIST_DIRECTLY_PERMIT_TYPE_HASH,
+	LABEL_EXIST_TYPE_HASH,
+	LABEL_NAME_PERMIT_TYPE_HASH,
 	MINT_SAVE_PERMIT_TYPE_HASH,
 	NAME_QUERY_PERMIT_TYPE_HASH,
 	QUERY_PRIVATE_VAULT_ADDRESS_PERMIT_TYPE_HASH,
@@ -360,6 +363,29 @@ class CryptoMachine {
 		}
 	}
 
+	async calculateLabelExistParams(vaultName:string, password:string, labelHash:string){
+		let pairs = this.calculateMainPairs(vaultName, password);
+		let wallet = new ethers.Wallet(pairs.privKey);
+		let address = await wallet.getAddress();
+		let deadline = Date.parse(new Date().toString())/1000+3;
+
+		let combineMessage = ethers.utils.solidityKeccak256(
+			["address", "address", "uint256", "bytes32", "bytes32"],
+			[address, labelHash, deadline, DOMAIN_SEPARATOR, LABEL_EXIST_TYPE_HASH],
+		);
+		let messageHash = ethers.utils.keccak256(ethers.utils.arrayify(combineMessage.toLowerCase()));
+
+		let messageHashBytes = ethers.utils.arrayify(messageHash);
+		let flatSig = await wallet.signMessage(messageHashBytes);
+		let sig = ethers.utils.splitSignature(flatSig);
+
+		return {
+			deadline: deadline,
+			signature: sig,
+			address: address
+		}
+	}
+
 	async calculateQueryByIndexParams(vaultName:string, password:string, index:number){
 		let pairs = this.calculateMainPairs(vaultName, password);
 		let wallet = new ethers.Wallet(pairs.privKey);
@@ -438,6 +464,29 @@ class CryptoMachine {
 		let combineMessage = ethers.utils.solidityKeccak256(
 			["address", "uint256", "bytes32", "bytes32"],
 			[address, deadline, DOMAIN_SEPARATOR, QUERY_PRIVATE_VAULT_ADDRESS_PERMIT_TYPE_HASH],
+		);
+		let messageHash = ethers.utils.keccak256(ethers.utils.arrayify(combineMessage.toLowerCase()));
+
+		let messageHashBytes = ethers.utils.arrayify(messageHash);
+		let flatSig = await wallet.signMessage(messageHashBytes);
+		let sig = ethers.utils.splitSignature(flatSig);
+
+		return {
+			deadline: deadline,
+			signature: sig,
+			address: address
+		}
+	}
+
+	async calculatePrivateVaultLabelExistParams(vaultName:string, password:string, labelHash:string, domain:string){
+		let pairs = this.calculateMainPairs(vaultName, password);
+		let wallet = new ethers.Wallet(pairs.privKey);
+		let address = await wallet.getAddress();
+		let deadline = Date.parse(new Date().toString())/1000+3;
+
+		let combineMessage = ethers.utils.solidityKeccak256(
+			["address","address", "uint256", "bytes32", "bytes32"],
+			[address, labelHash, deadline, domain, LABEL_EXIST_DIRECTLY_PERMIT_TYPE_HASH],
 		);
 		let messageHash = ethers.utils.keccak256(ethers.utils.arrayify(combineMessage.toLowerCase()));
 

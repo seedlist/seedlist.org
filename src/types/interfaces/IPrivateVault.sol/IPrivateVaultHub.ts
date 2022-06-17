@@ -26,6 +26,7 @@ export interface IPrivateVaultHubInterface extends utils.Interface {
   functions: {
     "getPrivateDataByIndexDirectly(uint64,uint256,uint8,bytes32,bytes32)": FunctionFragment;
     "getPrivateDataByNameDirectly(address,uint256,uint8,bytes32,bytes32)": FunctionFragment;
+    "labelIsExistDirectly(address,uint256,uint8,bytes32,bytes32)": FunctionFragment;
     "labelNameDirectly(uint64,uint256,uint8,bytes32,bytes32)": FunctionFragment;
     "saveWithMintingDirectly(string,string,address,uint256,uint8,bytes32,bytes32)": FunctionFragment;
     "saveWithoutMintingDirectly(string,string,address,uint256,uint8,bytes32,bytes32)": FunctionFragment;
@@ -35,6 +36,7 @@ export interface IPrivateVaultHubInterface extends utils.Interface {
     nameOrSignatureOrTopic:
       | "getPrivateDataByIndexDirectly"
       | "getPrivateDataByNameDirectly"
+      | "labelIsExistDirectly"
       | "labelNameDirectly"
       | "saveWithMintingDirectly"
       | "saveWithoutMintingDirectly"
@@ -46,6 +48,10 @@ export interface IPrivateVaultHubInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "getPrivateDataByNameDirectly",
+    values: [string, BigNumberish, BigNumberish, BytesLike, BytesLike]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "labelIsExistDirectly",
     values: [string, BigNumberish, BigNumberish, BytesLike, BytesLike]
   ): string;
   encodeFunctionData(
@@ -83,6 +89,10 @@ export interface IPrivateVaultHubInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "getPrivateDataByNameDirectly",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "labelIsExistDirectly",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -146,6 +156,15 @@ export interface IPrivateVaultHub extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[string]>;
 
+    labelIsExistDirectly(
+      labelHash: string,
+      deadline: BigNumberish,
+      v: BigNumberish,
+      r: BytesLike,
+      s: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
+
     labelNameDirectly(
       index: BigNumberish,
       deadline: BigNumberish,
@@ -196,6 +215,15 @@ export interface IPrivateVaultHub extends BaseContract {
     overrides?: CallOverrides
   ): Promise<string>;
 
+  labelIsExistDirectly(
+    labelHash: string,
+    deadline: BigNumberish,
+    v: BigNumberish,
+    r: BytesLike,
+    s: BytesLike,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
+
   labelNameDirectly(
     index: BigNumberish,
     deadline: BigNumberish,
@@ -245,6 +273,15 @@ export interface IPrivateVaultHub extends BaseContract {
       s: BytesLike,
       overrides?: CallOverrides
     ): Promise<string>;
+
+    labelIsExistDirectly(
+      labelHash: string,
+      deadline: BigNumberish,
+      v: BigNumberish,
+      r: BytesLike,
+      s: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
 
     labelNameDirectly(
       index: BigNumberish,
@@ -299,6 +336,15 @@ export interface IPrivateVaultHub extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    labelIsExistDirectly(
+      labelHash: string,
+      deadline: BigNumberish,
+      v: BigNumberish,
+      r: BytesLike,
+      s: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     labelNameDirectly(
       index: BigNumberish,
       deadline: BigNumberish,
@@ -343,6 +389,15 @@ export interface IPrivateVaultHub extends BaseContract {
 
     getPrivateDataByNameDirectly(
       name: string,
+      deadline: BigNumberish,
+      v: BigNumberish,
+      r: BytesLike,
+      s: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    labelIsExistDirectly(
+      labelHash: string,
       deadline: BigNumberish,
       v: BigNumberish,
       r: BytesLike,

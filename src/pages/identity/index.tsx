@@ -13,7 +13,7 @@ const Identity:React.FC<IBaseProps> = (props:IBaseProps)=>{
 					</Text>
 				</Center>
 				<Center>
-					<Image marginY="80px" src="./coming-soon.svg" width="200" height="200" />
+					<Image marginY="80px" src="./media/coming-soon.svg" width="200" height="200" />
 				</Center>
 			</Container>
 		</Center>

@@ -19,7 +19,7 @@ const Footer:React.FC<IBaseProps>=(props:IBaseProps)=>{
 			  </HStack>
 		  </Link>
 
-          <NavLink to="/MIT">
+          <NavLink to="/license">
 			  <HStack spacing={2}>
 				  <Text fontSize="1xl" fontWeight="">
 					  <Trans>License</Trans>: MIT
@@ -27,13 +27,13 @@ const Footer:React.FC<IBaseProps>=(props:IBaseProps)=>{
 			  </HStack>
           </NavLink>
 
-          <Link href="https://github.com/seedlist/seedlist-docs" target="_blank">
+          <NavLink to="/document">
 			  <HStack spacing={2}>
 				  <Text fontSize="1xl" fontWeight="">
 					 <Trans>Docs</Trans>
 				  </Text>
 			  </HStack>
-          </Link>
+          </NavLink>
 
           <Link href="https://discord.gg/kQgg5kkpA5" target="_blank">
 			  <HStack spacing={2}>
